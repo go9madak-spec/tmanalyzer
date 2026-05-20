@@ -1,0 +1,21 @@
+# Streamlit Frontend Architecture & Design Rules for TM Analyzer
+
+## 1. Core Tech Stack & Libraries
+- **Base Framework**: Streamlit (Latest Stable)
+- **Navigation**: `streamlit-navigation-bar` (`st_navbar`) for a polished top-header SaaS layout.
+- **Data Visualization**: `streamlit-echarts` for responsive, interactive, and high-density charts.
+- **Micro-UI Elements**: Streamlit default containers wrapped cleanly, aiming to minimize native sidebar usage.
+
+## 2. Design Philosophy & System Rules
+Follow the unified design principles of **shadcn/ui** (Modern Minimalism) and **Ant Design** (Enterprise Data Density):
+- **Layout & Grid**: Maximize the horizontal space (`layout="wide"`). Group related analytics widgets into clean, box-contained layouts using `st.container(border=True)`.
+- **Typography Hierarchy**: Maintain strict visual contrast. Section titles should be distinct, while secondary metadata or table labels must use muted colors (e.g., gray-500 text tokens).
+- **Color Palette Prefs**: 
+  - Accent Color: Deep Slate Blue (used for primary focus and interactive points).
+  - Background: Clean crisp white for Light mode / Soft Charcoal for Dark mode. Never use pure black `#000000`.
+  - Semantic Status: Use desaturated pastel tones for operational status indicators (e.g., soft red for alert, muted emerald for stable).
+
+## 3. LLM Code Generation Instructions
+1. **No Default UI/UX**: Do not use naked `st.button` or raw `st.sidebar` for primary application flows. Structure the user journey seamlessly using the custom top navigation bar (`st_navbar`).
+2. **State & Re-runs**: Always manage component interactions through `st.session_state` to prevent unexpected global page re-runs from discarding user filtering inputs.
+3. **Data Density**: Optimize data grids and alignment so that heavy analytical data remains clean and scannable at a glance, adhering to Ant Design table specs.
